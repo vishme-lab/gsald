@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="referrer" content="no-referrer">
+  <title>Admin Console</title>
+  <link rel="icon" href="/static/img/shield.svg" type="image/svg+xml">
+  <link rel="preload" href="/static/fonts/orbitron-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/static/fonts/rajdhani-latin-600.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/static/fonts/fonts.css">
+  <link rel="stylesheet" href="/static/css/theme.css">
+  <link rel="stylesheet" href="assets/admin.css">
+</head>
+<body class="admin">
+  <canvas id="fx-bg" aria-hidden="true"></canvas>
+  <div class="fx-vignette" aria-hidden="true"></div>
+  <div class="fx-scanlines" aria-hidden="true"></div>
+
+  <div class="hazard mono" role="note"><span>RESTRICTED</span> Admin console. Authorised personnel only. Do not share this URL.</div>
+
+  <header class="topbar">
+    <div class="brand">
+      <svg class="brand-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.5 4 5.5v6c0 4.6 3.3 8.6 8 10 4.7-1.4 8-5.4 8-10v-6l-8-3Z"/><path d="m8.5 12 2.4 2.4 4.6-4.8"/></svg>
+      <span class="brand-text"><b>CYBER</b><i>//</i>CONTROL</span>
+    </div>
+    <nav class="topnav">
+      <a class="btn ghost sm" href="/" target="_blank" rel="noopener noreferrer">Open leaderboard &#8599;</a>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    <section class="admin-hero">
+      <div class="hero-eyebrow mono"><span class="cursor"></span>ADMIN CONSOLE</div>
+      <h1 class="title"><span class="glitch" data-text="DATA CONTROL CENTER"><span>DATA CONTROL CENTER</span></span></h1>
+      <p class="lede">Upload the latest Excel file for each stream. Each upload is saved as a new version. The leaderboard recalculates straight away, and earlier versions stay in the history and trendlines.</p>
+    </section>
+
+    <section class="admin-bar hud">
+      <div class="asof">
+        <label for="as-of" class="mono">Data as of</label>
+        <input type="date" id="as-of" class="mono">
+        <p class="hint">Uploads land on the trendline at this date. To backfill an older file, pick its date first.</p>
+      </div>
+      <div class="admin-actions">
+        <a class="btn" href="api/export" download>Export leaderboard (.xlsx)</a>
+        <a class="btn ghost" href="api/unmapped" id="unmapped-link" download>Unmapped emails</a>
+      </div>
+    </section>
+
+    <section class="admin-stats" id="stats" aria-label="Current totals"></section>
+
+    <section class="upload-grid" id="cats" aria-label="Score uploads"></section>
+
+    <section class="map-box hud" id="mapping" aria-label="Email to name mapping"></section>
+
+    <section class="admin-lower">
+      <div class="hud">
+        <div class="panel-head"><span class="ph-idx">LOG</span><h2>Activity log</h2><span class="ph-meta">latest 40</span></div>
+        <ol class="audit mono" id="audit"></ol>
+      </div>
+      <div class="hud danger-zone">
+        <div class="panel-head"><span class="ph-idx">!</span><h2>Danger zone</h2></div>
+        <div class="dz-body">
+          <p>Start a fresh season by clearing every score version and name mapping. A backup of the current database is saved to <code>data/backups/</code> first, and the original uploaded files are kept.</p>
+          <button class="btn danger" type="button" id="purge">Clear all data</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="toasts" id="toasts" role="status" aria-live="polite"></div>
+
+  <dialog class="modal hud" id="confirm">
+    <form method="dialog">
+      <div class="panel-head"><span class="ph-idx">?</span><h2 id="confirm-title">Confirm</h2></div>
+      <div class="modal-body">
+        <p id="confirm-text"></p>
+        <label class="type-confirm" id="confirm-type-wrap" hidden>
+          <span class="mono">Type <b id="confirm-word"></b> to continue</span>
+          <input id="confirm-input" class="mono" autocomplete="off">
+        </label>
+      </div>
+      <div class="modal-actions">
+        <button class="btn ghost" value="cancel" type="submit">Cancel</button>
+        <button class="btn danger" value="ok" id="confirm-ok" type="submit">Confirm</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="/static/js/fx.js"></script>
+  <script src="/static/js/charts.js"></script>
+  <script src="assets/admin.js"></script>
+</body>
+</html>

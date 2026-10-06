@@ -1,0 +1,17 @@
+# Live data: scores, archived uploads, backups and the secret admin key
+data/
+demo-data/
+sample-data/
+
+.venv/
+__pycache__/
+*.pyc
+
+# Settings, including the admin URL secret
+.env
+
+# Offline package bundle made by: python launcher.py --download-wheels
+wheels/
+
+# Local Claude Code tool settings
+.claude/
